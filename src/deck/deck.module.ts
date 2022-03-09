@@ -2,6 +2,6 @@ import { Module } from '@nestjs/common';
 import { DeckService } from './deck.service';
 
 @Module({
-  providers: [DeckService]
+  providers: [DeckService],
 })
 export class DeckModule {}
