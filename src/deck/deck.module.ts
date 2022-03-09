@@ -3,5 +3,6 @@ import { DeckService } from './deck.service';
 
 @Module({
   providers: [DeckService],
+  exports: [DeckService],
 })
 export class DeckModule {}
