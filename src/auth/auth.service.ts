@@ -18,6 +18,7 @@ export class AuthService {
     }
     return null;
   }
+
   login(user: UserData, res: Response) {
     const payload = { email: user.email };
     const token = sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
@@ -28,5 +29,15 @@ export class AuthService {
         httpOnly: true,
       })
       .json(user);
+  }
+
+  logout(res: Response) {
+    res
+      .clearCookie('jwt', {
+        secure: false,
+        domain: 'localhost',
+        httpOnly: true,
+      })
+      .json({ ok: true });
   }
 }
