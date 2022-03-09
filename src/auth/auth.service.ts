@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { Response } from 'express';
+import { sign } from 'jsonwebtoken';
+
 import { hashPwd } from 'src/utils/hash-pwd';
 import { sanitizeUser } from 'src/utils/sanitize-user';
+import { UserData } from 'src/interfaces/user';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -13,5 +17,16 @@ export class AuthService {
       return sanitizeUser(user);
     }
     return null;
+  }
+  login(user: UserData, res: Response) {
+    const payload = { email: user.email };
+    const token = sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
+    return res
+      .cookie('jwt', token, {
+        secure: false,
+        domain: 'localhost',
+        httpOnly: true,
+      })
+      .json(user);
   }
 }
