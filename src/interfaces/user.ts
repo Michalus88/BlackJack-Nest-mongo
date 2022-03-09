@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose';
-import { CardInterface } from 'src/schemas/user.schema';
+import { CardInterface, User } from 'src/schemas/user.schema';
 
 export interface ResponseUserData {
   _id: ObjectId;
@@ -9,4 +9,8 @@ export interface ResponseUserData {
   playerPoints: number;
   dealerCards: CardInterface[];
   dealerPoints: number;
+}
+
+export interface UserData extends User {
+  _id: ObjectId;
 }
