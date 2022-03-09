@@ -19,4 +19,8 @@ export class UserService {
     await newUser.save();
     return sanitizeUser(newUser);
   }
+
+  async findByEmail(email) {
+    return await this.userModel.findOne({ email });
+  }
 }
