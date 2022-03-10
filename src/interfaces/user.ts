@@ -4,6 +4,7 @@ import { CardInterface, User } from 'src/schemas/user.schema';
 export interface ResponseUserData {
   _id: ObjectId;
   email: string;
+  means: number;
   playerBet: number;
   playerCards: CardInterface[];
   playerPoints: number;
