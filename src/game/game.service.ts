@@ -13,7 +13,15 @@ export class GameService {
   ) {}
   async initialize(user: UserData) {
     const player = await this.userService.findByEmail(user.email);
-    const { deck, playerCards, dealerCards } = player;
+    this.dealCards(player);
+    this.calculatePoints(player);
+
+    player.save();
+    return sanitizeUser(player);
+  }
+
+  dealCards(player: UserData) {
+    const { deck, playerCards, dealerCards, isDeal } = player;
 
     if (deck.length === 0) {
       deck.push(...this.deckService.createDeck());
@@ -33,5 +41,27 @@ export class GameService {
     }
     const card = deck.pop();
     return card;
+  }
+
+  calculatePoints(player: UserData): void {
+    player.playerPoints = this.addPoints(player.playerCards);
+    player.dealerPoints = this.addPoints(player.dealerCards);
+  }
+
+  addPoints(cards): number {
+    let points = 0;
+    cards.forEach((card) => {
+      const weight =
+        card.weight === 'J' ||
+        card.weight === 'D' ||
+        card.weight === 'K' ||
+        card.weight === 'A'
+          ? card.weight === 'A' && cards.length > 2
+            ? 1
+            : 10
+          : card.weight;
+      points += Number(weight);
+    });
+    return points;
   }
 }
