@@ -18,11 +18,11 @@ export class GameService {
     if (deck.length === 0) {
       deck.push(...this.deckService.createDeck());
     }
-    if (!player.isDeal) {
+    if (!isDeal) {
       for (let i = 0; i < 2; i++) {
-        playerCards.push(this.pickCard(player.deck));
+        playerCards.push(this.pickCard(deck));
       }
-      dealerCards.push(this.pickCard(player.deck));
+      dealerCards.push(this.pickCard(deck));
     }
     player.isDeal = true;
     player.save();
