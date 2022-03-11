@@ -33,7 +33,7 @@ export class GameService {
 
   pickCard(deck: CardInterface[]) {
     if (deck.length < 10) {
-      deck = this.deckService.createDeck();
+      deck.push(...this.deckService.createDeck());
     }
     const card = deck.pop();
     return card;
