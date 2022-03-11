@@ -25,10 +25,6 @@ export class GameService {
       dealerCards.push(this.pickCard(deck));
     }
     player.isDeal = true;
-    player.save();
-    console.log(player);
-
-    return sanitizeUser(player);
   }
 
   pickCard(deck: CardInterface[]) {
