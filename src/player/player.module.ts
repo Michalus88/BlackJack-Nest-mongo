@@ -3,5 +3,6 @@ import { PlayerService } from './player.service';
 
 @Module({
   providers: [PlayerService],
+  exports: [PlayerService],
 })
 export class PlayerModule {}
