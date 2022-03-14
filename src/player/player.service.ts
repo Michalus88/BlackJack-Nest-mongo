@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { PlayerBetDto } from 'src/game/dto/player-bet.dto';
 import { UserData } from 'src/interfaces/user';
 import { CardInterface } from 'src/schemas/user.schema';
 
@@ -24,5 +25,11 @@ export class PlayerService {
       points += Number(weight);
     });
     return points;
+  }
+
+  validateBet(player: UserData, playerBetDto: PlayerBetDto) {
+    if (player.isBet) throw new BadRequestException('Bet is already set');
+    if (playerBetDto.bet > player.means)
+      throw new BadRequestException(`You cann not bet more than &{means}`);
   }
 }
