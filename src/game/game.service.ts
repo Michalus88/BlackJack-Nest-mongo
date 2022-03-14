@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { DeckService } from 'src/deck/deck.service';
 import { UserData } from 'src/interfaces/user';
 import { PlayerService } from 'src/player/player.service';
-import { CardInterface } from 'src/schemas/user.schema';
 import { UserService } from 'src/user/user.service';
 import { sanitizeUser } from 'src/utils/sanitize-user';
 
