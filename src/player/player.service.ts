@@ -15,7 +15,7 @@ export class PlayerService {
     player.dealerPoints = this.calculatePoints(player.dealerCards);
   }
 
-  addPoints(cards): number {
+  calculatePoints(cards: CardInterface[]): number {
     let points = 0;
     cards.forEach((card) => {
       const weight =
