@@ -51,8 +51,8 @@ export class User extends Document {
   @Prop({ type: Boolean, default: false })
   isBet: boolean;
 
-  @Prop({ type: Boolean, default: false })
-  gameResult: boolean;
+  @Prop({ type: Number, default: 0 })
+  gameResult: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
