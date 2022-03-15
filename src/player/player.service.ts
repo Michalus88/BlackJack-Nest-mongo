@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
+import { GameResults } from 'src/game/constant';
 import { PlayerBetDto } from 'src/game/dto/player-bet.dto';
 import { UserData } from 'src/interfaces/user';
 import { CardInterface } from 'src/schemas/user.schema';
