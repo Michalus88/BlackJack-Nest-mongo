@@ -10,9 +10,9 @@ import { CardInterface } from 'src/schemas/user.schema';
 
 @Injectable()
 export class PlayerService {
-  calculatePoints(player: UserData): void {
-    player.playerPoints = this.addPoints(player.playerCards);
-    player.dealerPoints = this.addPoints(player.dealerCards);
+  setPoints(player: UserData): void {
+    player.playerPoints = this.calculatePoints(player.playerCards);
+    player.dealerPoints = this.calculatePoints(player.dealerCards);
   }
 
   addPoints(cards): number {
