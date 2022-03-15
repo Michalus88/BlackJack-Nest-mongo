@@ -27,6 +27,7 @@ export class GameService {
     const player = await this.userService.findByEmail(user.email);
     this.playerService.betValidate(player, playerBetDto);
 
+    player.means -= playerBetDto.bet;
     player.playerBet = playerBetDto.bet;
     player.isBet = true;
 
