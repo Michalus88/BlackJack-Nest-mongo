@@ -32,9 +32,50 @@ export class PlayerService {
     return points;
   }
 
-  validateBet(player: UserData, playerBetDto: PlayerBetDto) {
-    if (player.isBet) throw new BadRequestException('Bet is already set');
-    if (playerBetDto.bet > player.means)
-      throw new BadRequestException(`You cann not bet more than &{means}`);
+  calculationOfMeans(player: UserData, gameResult: GameResults): number {
+    switch (gameResult) {
+      case GameResults.WIN:
+        player.means += player.playerBet * 2;
+        break;
+      case GameResults.DRAW:
+        player.means += player.playerBet;
+        break;
+      case GameResults.LOOSE:
+        player.means;
+        break;
+    }
+    return player.means;
+  }
+
+  betValidate(player: UserData, playerBetDto: PlayerBetDto) {
+    if (!player.isDeal) {
+      throw new ForbiddenException('You must have cards first ');
+    }
+    if (player.isBet) {
+      throw new BadRequestException('Bet is already set');
+    }
+    if (playerBetDto.bet > player.means) {
+      throw new BadRequestException(`You can't bet more than ${player.means}`);
+    }
+  }
+
+  cardSelectionVerifier(player: UserData) {
+    if (!player.isBet) {
+      throw new ForbiddenException('You have to bet first');
+    }
+    if (player.gameResult !== GameResults.NO_RESULT) {
+      throw new ForbiddenException('This game has ended');
+    }
+  }
+
+  resetAfterRoud(player: UserData): void {
+    player.gameResult = GameResults.NO_RESULT;
+    player.isDeal = false;
+    player.isBet = false;
+    player.playerBet = 0;
+    player.playerPoints = 0;
+    player.playerCards = [];
+    player.dealerPoints = 0;
+    player.dealerCards = [];
   }
 }
