@@ -17,7 +17,7 @@ export class GameService {
   async initialize(user: UserData) {
     const player = await this.userService.findByEmail(user.email);
     this.deckService.dealCards(player);
-    this.playerService.calculatePoints(player);
+    this.playerService.setPoints(player);
 
     await player.save();
     return sanitizeUser(player);
