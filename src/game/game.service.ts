@@ -4,6 +4,7 @@ import { UserData } from 'src/interfaces/user';
 import { PlayerService } from 'src/player/player.service';
 import { UserService } from 'src/user/user.service';
 import { sanitizeUser } from 'src/utils/sanitize-user';
+import { GameResults, MAX_NUMBER_OF_POINTS } from './constant';
 import { PlayerBetDto } from './dto/player-bet.dto';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class GameService {
 
   async initialize(user: UserData) {
     const player = await this.userService.findByEmail(user.email);
+    this.checkToReset(player);
     this.deckService.dealCards(player);
     this.playerService.setPoints(player);
 
@@ -32,6 +34,37 @@ export class GameService {
     player.isBet = true;
 
     await player.save();
-    return player;
+    return sanitizeUser(player);
+  }
+
+  async playerChooseTheCard(user: UserData) {
+    const player = await this.userService.findByEmail(user.email);
+    this.checkToReset(player);
+    this.playerService.cardSelectionVerifier(player);
+
+    player.playerCards.push(this.deckService.pickCard(player.deck));
+    player.playerPoints = this.playerService.calculatePoints(
+      player.playerCards,
+    );
+
+    if (player.playerPoints > MAX_NUMBER_OF_POINTS) {
+      player.gameResult = GameResults.LOOSE;
+      player.means = this.playerService.calculationOfMeans(
+        player,
+        GameResults.LOOSE,
+      );
+
+      player.save();
+      return sanitizeUser(player);
+    } else {
+      player.save();
+      return sanitizeUser(player);
+    }
+  }
+
+  checkToReset(player: UserData): void {
+    if (player.gameResult !== GameResults.NO_RESULT) {
+      this.playerService.resetAfterRoud(player);
+    }
   }
 }
