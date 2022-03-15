@@ -25,7 +25,7 @@ export class GameService {
 
   async setBet(user: UserData, playerBetDto: PlayerBetDto) {
     const player = await this.userService.findByEmail(user.email);
-    this.playerService.validateBet(player, playerBetDto);
+    this.playerService.betValidate(player, playerBetDto);
 
     player.playerBet = playerBetDto.bet;
     player.isBet = true;
