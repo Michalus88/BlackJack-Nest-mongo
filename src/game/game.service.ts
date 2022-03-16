@@ -8,7 +8,11 @@ import { UserData } from 'src/interfaces/user';
 import { PlayerService } from 'src/player/player.service';
 import { UserService } from 'src/user/user.service';
 import { sanitizeUser } from 'src/utils/sanitize-user';
-import { GameResults, MAX_NUMBER_OF_POINTS } from './constant';
+import {
+  GameResults,
+  MAX_NUMBER_OF_POINTS,
+  NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD,
+} from './constant';
 import { PlayerBetDto } from './dto/player-bet.dto';
 
 @Injectable()
@@ -61,6 +65,26 @@ export class GameService {
       player.save();
       return sanitizeUser(player);
     }
+  }
+
+  async playerStand(user: UserData) {
+    const player = await this.userService.findByEmail(user.email);
+    const { dealerPoints, dealerCards } = player;
+    let dealerPointsUpdate = dealerPoints;
+    this.checkToReset(player);
+    this.gameValidate(player);
+
+    while (dealerPointsUpdate <= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
+      dealerCards.push(this.deckService.pickCard(player.deck));
+      dealerPointsUpdate = this.playerService.calculatePoints(dealerCards);
+    }
+    if (dealerPoints >= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
+      this.playerService.setGameResult(player);
+    }
+    this.playerService.setMeans(player);
+
+    await player.save();
+    return sanitizeUser(player);
   }
 
   checkToReset(player: UserData): void {
