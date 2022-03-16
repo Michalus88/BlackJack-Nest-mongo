@@ -101,6 +101,9 @@ export class GameService {
       );
     }
     player.means = ALLOCATED_FUNDS;
+
+    player.save();
+    return sanitizeUser(player);
   }
 
   isBetValidate(player: UserData, playerBetDto: PlayerBetDto) {
