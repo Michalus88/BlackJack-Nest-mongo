@@ -53,10 +53,7 @@ export class GameService {
 
     if (player.playerPoints > MAX_NUMBER_OF_POINTS) {
       player.gameResult = GameResults.LOOSE;
-      player.means = this.playerService.calculationOfMeans(
-        player,
-        GameResults.LOOSE,
-      );
+      this.playerService.setMeans(player);
 
       player.save();
       return sanitizeUser(player);
