@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { DeckService } from 'src/deck/deck.service';
 import { UserData } from 'src/interfaces/user';
 import { PlayerService } from 'src/player/player.service';
