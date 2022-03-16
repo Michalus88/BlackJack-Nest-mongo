@@ -22,6 +22,12 @@ export class GameController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('stand')
+  async playerStand(@UserObj() user: UserData) {
+    return this.gameService.playerStand(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Put('bet')
   async setBet(@UserObj() user: UserData, @Body() playerBetDto: PlayerBetDto) {
     return this.gameService.setBet(user, playerBetDto);

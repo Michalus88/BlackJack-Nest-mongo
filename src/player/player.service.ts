@@ -44,28 +44,6 @@ export class PlayerService {
         player.means;
         break;
     }
-    return player.means;
-  }
-
-  betValidate(player: UserData, playerBetDto: PlayerBetDto) {
-    if (!player.isDeal) {
-      throw new ForbiddenException('You must have cards first ');
-    }
-    if (player.isBet) {
-      throw new BadRequestException('Bet is already set');
-    }
-    if (playerBetDto.bet > player.means) {
-      throw new BadRequestException(`You can't bet more than ${player.means}`);
-    }
-  }
-
-  cardSelectionVerifier(player: UserData) {
-    if (!player.isBet) {
-      throw new ForbiddenException('You have to bet first');
-    }
-    if (player.gameResult !== GameResults.NO_RESULT) {
-      throw new ForbiddenException('This game has ended');
-    }
   }
 
   resetAfterRoud(player: UserData): void {
