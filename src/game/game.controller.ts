@@ -28,6 +28,12 @@ export class GameController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('take-credits')
+  async takeCredits(@UserObj() user: UserData) {
+    return this.gameService.takeCredits(user);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Put('bet')
   async setBet(@UserObj() user: UserData, @Body() playerBetDto: PlayerBetDto) {
     return this.gameService.setBet(user, playerBetDto);
