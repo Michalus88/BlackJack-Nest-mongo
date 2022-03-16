@@ -3,7 +3,7 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { GameResults } from 'src/game/constant';
+import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constant';
 import { PlayerBetDto } from 'src/game/dto/player-bet.dto';
 import { UserData } from 'src/interfaces/user';
 import { CardInterface } from 'src/schemas/user.schema';
@@ -32,7 +32,23 @@ export class PlayerService {
     return points;
   }
 
-  calculationOfMeans(player: UserData, gameResult: GameResults): number {
+  setGameResult(player: UserData) {
+    const { playerPoints, dealerPoints } = player;
+    if (
+      playerPoints > MAX_NUMBER_OF_POINTS ||
+      (playerPoints < dealerPoints && dealerPoints <= MAX_NUMBER_OF_POINTS)
+    ) {
+      player.gameResult = GameResults.LOOSE;
+    } else if (
+      dealerPoints > MAX_NUMBER_OF_POINTS ||
+      (playerPoints > dealerPoints && playerPoints <= MAX_NUMBER_OF_POINTS)
+    ) {
+      player.gameResult = GameResults.WIN;
+    } else player.gameResult = GameResults.DRAW;
+  }
+
+  setMeans(player: UserData) {
+    const { gameResult } = player;
     switch (gameResult) {
       case GameResults.WIN:
         player.means += player.playerBet * 2;
