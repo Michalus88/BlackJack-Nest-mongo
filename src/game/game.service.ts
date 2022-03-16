@@ -106,6 +106,9 @@ export class GameService {
   }
 
   gameValidate(player: UserData) {
+    if (player.means === 0 && player.playerBet === 0) {
+      throw new ForbiddenException('You have no means');
+    }
     if (!player.isDeal) {
       throw new ForbiddenException('First you must have your cards dealt');
     }
