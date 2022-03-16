@@ -9,6 +9,7 @@ import { PlayerService } from 'src/player/player.service';
 import { UserService } from 'src/user/user.service';
 import { sanitizeUser } from 'src/utils/sanitize-user';
 import {
+  ALLOCATED_FUNDS,
   GameResults,
   MAX_NUMBER_OF_POINTS,
   NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD,
@@ -99,6 +100,7 @@ export class GameService {
         `You cannot take credits if you have ${player.means} credits.`,
       );
     }
+    player.means = ALLOCATED_FUNDS;
   }
 
   isBetValidate(player: UserData, playerBetDto: PlayerBetDto) {
