@@ -97,7 +97,7 @@ export class GameService {
   takeCredits(player: UserData) {
     if (player.means > 0) {
       throw new ForbiddenException(
-        `You cannot take credits if you have ${player.means} credits.`,
+        `You cannot take credits if you have ${player.means} $`,
       );
     }
     player.means = ALLOCATED_FUNDS;
