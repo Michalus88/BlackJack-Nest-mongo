@@ -93,6 +93,14 @@ export class GameService {
     }
   }
 
+  takeCredits(player: UserData) {
+    if (player.means > 0) {
+      throw new ForbiddenException(
+        `You cannot take credits if you have ${player.means} credits.`,
+      );
+    }
+  }
+
   isBetValidate(player: UserData, playerBetDto: PlayerBetDto) {
     if (!player.isDeal) {
       throw new ForbiddenException('First you must have your cards dealt');
