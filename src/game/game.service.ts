@@ -87,13 +87,7 @@ export class GameService {
     return sanitizeUser(player);
   }
 
-  checkToReset(player: UserData): void {
-    if (player.gameResult !== GameResults.NO_RESULT) {
-      this.playerService.resetAfterRoud(player);
-    }
-  }
-
-  takeCredits(player: UserData) {
+  async takeCredits(player: UserData) {
     if (player.means > 0) {
       throw new ForbiddenException(
         `You cannot take credits if you have ${player.means} $`,
