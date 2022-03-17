@@ -1,11 +1,6 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
-import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constant';
-import { PlayerBetDto } from 'src/game/dto/player-bet.dto';
+import { Injectable } from '@nestjs/common';
 import { UserData } from 'src/interfaces/user';
+import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constant';
 import { CardInterface } from 'src/schemas/user.schema';
 
 @Injectable()
