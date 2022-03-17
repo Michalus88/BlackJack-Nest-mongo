@@ -70,16 +70,15 @@ export class GameService {
 
   async playerStand(user: UserData) {
     const player = await this.userService.findByEmail(user.email);
-    const { dealerPoints, dealerCards } = player;
-    let dealerPointsUpdate = dealerPoints;
+    const { dealerCards } = player;
     this.checkToReset(player);
     this.gameValidate(player);
 
-    while (dealerPointsUpdate <= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
+    while (player.dealerPoints <= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
       dealerCards.push(this.deckService.pickCard(player.deck));
-      dealerPointsUpdate = this.playerService.calculatePoints(dealerCards);
+      player.dealerPoints = this.playerService.calculatePoints(dealerCards);
     }
-    if (dealerPoints >= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
+    if (player.dealerPoints >= NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD) {
       this.playerService.setGameResult(player);
     }
     this.playerService.setMeans(player);
