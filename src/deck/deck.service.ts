@@ -5,7 +5,7 @@ import { cardsTypes, cardsWeights } from './constans';
 
 @Injectable()
 export class DeckService {
-  dealCards(player: UserData) {
+  dealCards(player: UserData): void {
     const { deck, playerCards, dealerCards, isDeal } = player;
 
     if (deck.length === 0) {
