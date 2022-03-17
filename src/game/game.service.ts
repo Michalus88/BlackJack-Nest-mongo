@@ -95,30 +95,38 @@ export class GameService {
     }
     player.means = ALLOCATED_FUNDS;
 
-    player.save();
+    await player.save();
     return sanitizeUser(player);
   }
 
+  checkToReset(player: UserData): void {
+    if (player.gameResult !== GameResults.NO_RESULT) {
+      this.playerService.resetAfterRoud(player);
+    }
+  }
+
   isBetValidate(player: UserData, playerBetDto: PlayerBetDto) {
-    if (!player.isDeal) {
+    const { means, isDeal, isBet } = player;
+    if (!isDeal) {
       throw new ForbiddenException('First you must have your cards dealt');
     }
-    if (player.isBet) {
+    if (isBet) {
       throw new BadRequestException('Bet is already set');
     }
-    if (playerBetDto.bet > player.means) {
-      throw new BadRequestException(`You can't bet more than ${player.means}`);
+    if (playerBetDto.bet > means) {
+      throw new BadRequestException(`You can't bet more than ${means}`);
     }
   }
 
   gameValidate(player: UserData) {
-    if (player.means === 0 && player.playerBet === 0) {
+    const { means, playerBet, isDeal, isBet } = player;
+    if (means === 0 && playerBet === 0) {
       throw new ForbiddenException('You have no means');
     }
-    if (!player.isDeal) {
+    if (!isDeal) {
       throw new ForbiddenException('First you must have your cards dealt');
     }
-    if (!player.isBet) {
+    if (!isBet) {
       throw new ForbiddenException('You have to bet first');
     }
   }
