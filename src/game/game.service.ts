@@ -13,7 +13,7 @@ import {
   GameResults,
   MAX_NUMBER_OF_POINTS,
   NUMBER_TO_WHICH_DEALER_MUST_TAKE_CARD,
-} from './constant';
+} from './constants';
 import { PlayerBetDto } from './dto/player-bet.dto';
 
 @Injectable()
