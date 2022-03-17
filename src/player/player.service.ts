@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserData } from 'src/interfaces/user';
-import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constant';
+import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constants';
 import { CardInterface } from 'src/schemas/user.schema';
 
 @Injectable()
