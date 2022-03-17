@@ -38,6 +38,6 @@ export class AuthService {
         domain: 'localhost',
         httpOnly: true,
       })
-      .json({ ok: true });
+      .json({ message: 'Logout was successful' });
   }
 }
