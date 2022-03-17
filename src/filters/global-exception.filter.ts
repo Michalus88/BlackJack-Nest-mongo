@@ -1,5 +1,5 @@
+import { Response } from 'express';
 import { MongoError } from 'mongodb';
-
 import {
   ExceptionFilter,
   Catch,
@@ -7,14 +7,12 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-
     let status: number;
     let message: string;
 
