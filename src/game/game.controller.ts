@@ -5,7 +5,7 @@ import { UserData } from 'src/interfaces/user';
 import { PlayerBetDto } from './dto/player-bet.dto';
 import { GameService } from './game.service';
 
-@Controller('game')
+@Controller('api/game')
 export class GameController {
   constructor(private gameService: GameService) {}
 
