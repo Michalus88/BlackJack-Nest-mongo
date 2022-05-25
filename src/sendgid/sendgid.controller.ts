@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common';
 import { SendgidService } from './sendgid.service';
 
-@Controller('sendgid')
+@Controller('api/sendgid')
 export class SendgidController {
   constructor(private readonly sendgridService: SendgidService) {}
 
