@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { GameModule } from './game/game.module';
 import { DeckModule } from './deck/deck.module';
 import { PlayerModule } from './player/player.module';
+import { SendgidService } from './sendgid/sendgid.service';
+import { SendgidController } from './sendgid/sendgid.controller';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { PlayerModule } from './player/player.module';
     DeckModule,
     PlayerModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, SendgidController],
+  providers: [AppService, SendgidService],
 })
 export class AppModule {}
