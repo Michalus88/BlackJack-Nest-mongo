@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export interface CardInterface {
+  _id?: string;
   weight: string;
   type: string;
 }
@@ -18,10 +19,13 @@ const CardSchema = SchemaFactory.createForClass(Card);
 
 @Schema()
 export class User extends Document {
+  @Prop({ type: String, required: true, length: 50 })
+  name: string;
+
   @Prop({ type: String, unique: true, required: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, length: 50 })
   pwd: string;
 
   @Prop({ type: Number, default: 1500 })
