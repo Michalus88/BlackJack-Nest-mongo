@@ -27,8 +27,10 @@ export class GameService {
   async initialize(user: UserData) {
     const player = await this.userService.findByEmail(user.email);
     this.checkToReset(player);
-    this.deckService.dealCards(player);
-    this.playerService.setPoints(player);
+    if (player.means > 0 || player.playerBet > 0) {
+      this.deckService.dealCards(player);
+      this.playerService.setPoints(player);
+    }
 
     await player.save();
     return sanitizeUser(player);
@@ -94,6 +96,8 @@ export class GameService {
       );
     }
     player.means = ALLOCATED_FUNDS;
+    this.deckService.dealCards(player);
+    this.playerService.setPoints(player);
 
     await player.save();
     return sanitizeUser(player);
@@ -108,7 +112,7 @@ export class GameService {
   isBetValidate(player: UserData, playerBetDto: PlayerBetDto) {
     const { means, isDeal, isBet } = player;
     if (!isDeal) {
-      throw new ForbiddenException('First you must have your cards dealt');
+      throw new ForbiddenException('First you must have your cards deal');
     }
     if (isBet) {
       throw new BadRequestException('Bet is already set');
