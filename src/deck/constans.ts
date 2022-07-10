@@ -9,7 +9,7 @@ export const cardsWeights = [
   '9',
   '10',
   'J',
-  'D',
+  'Q',
   'K',
   'A',
 ];
