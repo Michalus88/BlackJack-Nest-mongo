@@ -7,25 +7,26 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ErrorRes } from 'types/error/error';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    let status: number;
+    let code: number;
     let message: string;
 
     if (exception instanceof MongoError) {
       switch (exception.code) {
         case 11000:
-          status = 400;
+          code = 409;
           message = 'The user with the given email already exists.';
           break;
         default:
       }
     } else {
-      status =
+      code =
         exception instanceof HttpException
           ? exception.getStatus()
           : HttpStatus.INTERNAL_SERVER_ERROR;
@@ -36,10 +37,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           : 'Please try later.';
     }
     console.error(exception);
-
-    response.json({
-      status,
-      message,
-    });
+    const errRes: ErrorRes = { code, message };
+    response.status(code).json(errRes);
   }
 }
