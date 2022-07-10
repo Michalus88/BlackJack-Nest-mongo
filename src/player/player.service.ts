@@ -15,7 +15,7 @@ export class PlayerService {
     cards.forEach((card) => {
       const weight =
         card.weight === 'J' ||
-        card.weight === 'D' ||
+        card.weight === 'Q' ||
         card.weight === 'K' ||
         card.weight === 'A'
           ? card.weight === 'A' && cards.length > 2
