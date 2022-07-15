@@ -20,9 +20,7 @@
 Project is a replication of the popular black jack card game. It was created to show my skills.
 The project was written in Nest.js with typescript. I used the Atlas mongoDb database Cloud database for mongoDb.
 For authentication and authorization I use passport.js and jwt token. 
-The application can be a separate entity, but it can also be combined with the frontend version, which can be found here
-
-This project is closely connected with the backend which has been placed in a separate repository. Backend here:<a href="https://github.com/Michalus88/BlackJack-React-ts.git">BlackJack-React-ts</a>
+The application can be a separate entity, but it can also be combined with the frontend version, which can be found here:<a href="https://github.com/Michalus88/BlackJack-React-ts.git">BlackJack-React-ts</a>
 
 ### :space_invader: Tech Stack
 
