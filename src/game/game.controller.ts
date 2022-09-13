@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Put, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { UserObj } from 'src/decorators/user-object.decorator';
 import { UserData } from 'src/interfaces/user';
 import { PlayerBetDto } from './dto/player-bet.dto';
 import { GameService } from './game.service';
 
-@Controller('game')
+@Controller('api/game')
 export class GameController {
   constructor(private gameService: GameService) {}
 

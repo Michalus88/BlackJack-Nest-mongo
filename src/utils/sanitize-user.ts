@@ -1,9 +1,9 @@
-import { ResponseUserData } from 'src/interfaces/user';
-import { User } from 'src/schemas/user.schema';
+import { ResponseUserData, UserData } from 'src/interfaces/user';
 
-export const sanitizeUser = (user: User): ResponseUserData => {
+export const sanitizeUser = (user: UserData): ResponseUserData => {
   const {
     _id,
+    name,
     email,
     gameResult,
     means,
@@ -12,9 +12,11 @@ export const sanitizeUser = (user: User): ResponseUserData => {
     playerPoints,
     dealerCards,
     dealerPoints,
+    isBet,
   } = user;
   return {
     _id,
+    name,
     email,
     gameResult,
     means,
@@ -23,5 +25,6 @@ export const sanitizeUser = (user: User): ResponseUserData => {
     playerPoints,
     dealerCards,
     dealerPoints,
+    isBet,
   };
 };

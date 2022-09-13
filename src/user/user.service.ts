@@ -1,23 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ResponseUserData, UserData } from 'src/interfaces/user';
+import { UserData } from 'src/interfaces/user';
 
 import { User } from 'src/schemas/user.schema';
 import { hashPwd } from 'src/utils/hash-pwd';
 import { sanitizeUser } from 'src/utils/sanitize-user';
+import { RegisterRes, LoggedUserRes } from 'types';
 import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
-  async create(registerUserDto): Promise<ResponseUserData> {
-    const { email, pwd } = registerUserDto as RegisterUserDto;
+  async getUser(user: UserData): Promise<LoggedUserRes> {
+    const { _id, name } = user;
+    return { id: String(_id), name };
+  }
+
+  async create(registerUserDto: RegisterUserDto): Promise<RegisterRes> {
+    const { email, pwd, name } = registerUserDto;
     const hashedPwd = hashPwd(pwd);
-    const newUser = new this.userModel({ email, pwd: hashedPwd }) as UserData;
+    const newUser = new this.userModel({
+      email,
+      pwd: hashedPwd,
+      name,
+    }) as UserData;
     await newUser.save();
-    return sanitizeUser(newUser);
+    return { id: String(newUser._id), message: 'registration successful' };
   }
 
   async findByEmail(email): Promise<UserData | null> {

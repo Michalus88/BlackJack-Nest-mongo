@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { UserData } from 'src/interfaces/user';
-import { GameResults, MAX_NUMBER_OF_POINTS } from 'src/game/constants';
+import {
+  GameResults,
+  MAX_NUMBER_OF_POINTS,
+  CardSymbols,
+} from 'src/game/constants';
 import { CardInterface } from 'src/schemas/user.schema';
 
 @Injectable()
@@ -12,17 +16,27 @@ export class PlayerService {
 
   calculatePoints(cards: CardInterface[]): number {
     let points = 0;
+    let aceCouter = 0;
+
     cards.forEach((card) => {
       const weight =
-        card.weight === 'J' ||
-        card.weight === 'D' ||
-        card.weight === 'K' ||
-        card.weight === 'A'
-          ? card.weight === 'A' && cards.length > 2
-            ? 1
+        card.weight === CardSymbols.KING ||
+        card.weight === CardSymbols.QUEEN ||
+        card.weight === CardSymbols.JACK ||
+        card.weight === CardSymbols.ACE
+          ? card.weight === CardSymbols.ACE
+            ? 11
             : 10
           : card.weight;
       points += Number(weight);
+
+      if (card.weight === CardSymbols.ACE) {
+        aceCouter += 1;
+      }
+      if (points > MAX_NUMBER_OF_POINTS && aceCouter > 0) {
+        aceCouter -= 1;
+        points -= 10;
+      }
     });
     return points;
   }

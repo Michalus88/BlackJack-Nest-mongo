@@ -20,15 +20,18 @@ export class AuthService {
   }
 
   login(user: UserData, res: Response) {
+    const userRes = { id: user._id, name: user.name };
     const payload = { email: user.email };
     const token = sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
+    const oneDay = 1000 * 60 * 60 * 24;
     return res
       .cookie('jwt', token, {
         secure: false,
         domain: 'localhost',
         httpOnly: true,
+        maxAge: oneDay,
       })
-      .json(user);
+      .json(userRes);
   }
 
   logout(res: Response) {
