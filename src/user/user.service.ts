@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ResponseUserData } from 'src/interfaces/user';
+import { ResponseUserData, UserData } from 'src/interfaces/user';
 
 import { User } from 'src/schemas/user.schema';
 import { hashPwd } from 'src/utils/hash-pwd';
@@ -15,8 +15,12 @@ export class UserService {
   async create(registerUserDto): Promise<ResponseUserData> {
     const { email, pwd } = registerUserDto as RegisterUserDto;
     const hashedPwd = hashPwd(pwd);
-    const newUser = new this.userModel({ email, pwd: hashedPwd }) as User;
+    const newUser = new this.userModel({ email, pwd: hashedPwd }) as UserData;
     await newUser.save();
     return sanitizeUser(newUser);
+  }
+
+  async findByEmail(email): Promise<UserData | null> {
+    return await this.userModel.findOne({ email });
   }
 }
