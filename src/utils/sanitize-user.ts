@@ -5,6 +5,7 @@ export const sanitizeUser = (user: User): ResponseUserData => {
   const {
     _id,
     email,
+    means,
     playerBet,
     playerCards,
     playerPoints,
@@ -14,6 +15,7 @@ export const sanitizeUser = (user: User): ResponseUserData => {
   return {
     _id,
     email,
+    means,
     playerBet,
     playerCards,
     playerPoints,
