@@ -31,6 +31,6 @@ export class UserService {
   }
 
   async findByEmail(email): Promise<UserData | null> {
-    return await this.userModel.findOne({ email });
+    return this.userModel.findOne({ email });
   }
 }
