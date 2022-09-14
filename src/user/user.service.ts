@@ -5,7 +5,6 @@ import { UserData } from 'src/interfaces/user';
 
 import { User } from 'src/schemas/user.schema';
 import { hashPwd } from 'src/utils/hash-pwd';
-import { sanitizeUser } from 'src/utils/sanitize-user';
 import { RegisterRes, LoggedUserRes } from 'types';
 import { RegisterUserDto } from './dto/register-user.dto';
 

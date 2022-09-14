@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { ObjectId } from 'mongoose';
 import { CardInterface, User } from 'src/schemas/user.schema';
 
@@ -15,6 +16,4 @@ export interface ResponseUserData {
   isBet: boolean;
 }
 
-export interface UserData extends User {
-  _id: ObjectId;
-}
+export type UserData = User;
