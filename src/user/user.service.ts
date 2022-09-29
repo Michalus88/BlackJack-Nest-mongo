@@ -4,8 +4,7 @@ import { Model } from 'mongoose';
 import { UserData } from 'src/interfaces/user';
 
 import { User } from 'src/schemas/user.schema';
-import { hashPwd } from 'src/utils/hash-pwd';
-import { sanitizeUser } from 'src/utils/sanitize-user';
+import { hashPwd } from '../utils/hash-pwd';
 import { RegisterRes, LoggedUserRes } from 'types';
 import { RegisterUserDto } from './dto/register-user.dto';
 
@@ -31,6 +30,6 @@ export class UserService {
   }
 
   async findByEmail(email): Promise<UserData | null> {
-    return await this.userModel.findOne({ email });
+    return this.userModel.findOne({ email });
   }
 }
