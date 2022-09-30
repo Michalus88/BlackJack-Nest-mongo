@@ -6,6 +6,7 @@ import { hashPwd } from 'src/utils/hash-pwd';
 import { sanitizeUser } from 'src/utils/sanitize-user';
 import { UserData } from 'src/interfaces/user';
 import { UserService } from 'src/user/user.service';
+import { stringToBoolean } from 'src/utils/string-to-boolean';
 
 @Injectable()
 export class AuthService {
@@ -26,8 +27,8 @@ export class AuthService {
     const oneDay = 1000 * 60 * 60 * 24;
     return res
       .cookie('jwt', token, {
-        secure: false,
-        domain: 'localhost',
+        secure: stringToBoolean(process.env.COOKIE_SECURE),
+        domain: process.env.DOMAIN,
         httpOnly: true,
         maxAge: oneDay,
       })
@@ -37,8 +38,8 @@ export class AuthService {
   logout(res: Response) {
     res
       .clearCookie('jwt', {
-        secure: false,
-        domain: 'localhost',
+        secure: stringToBoolean(process.env.COOKIE_SECURE),
+        domain: process.env.DOMAIN,
         httpOnly: true,
       })
       .json({ message: 'Logout was successful' });
