@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 
 import { hashPwd } from 'src/utils/hash-pwd';
 import { sanitizeUser } from 'src/utils/sanitize-user';
-import { UserData } from 'src/interfaces/user';
+import { ResponseUserData, UserData } from 'src/interfaces/user';
 import { UserService } from 'src/user/user.service';
 import { stringToBoolean } from 'src/utils/string-to-boolean';
 
@@ -12,7 +12,10 @@ import { stringToBoolean } from 'src/utils/string-to-boolean';
 export class AuthService {
   constructor(private usersService: UserService) {}
 
-  async validateUser(email: string, pwd: string): Promise<any> {
+  async validateUser(
+    email: string,
+    pwd: string,
+  ): Promise<ResponseUserData | null> {
     const user = await this.usersService.findByEmail(email);
     if (user && user.pwd === hashPwd(pwd)) {
       return sanitizeUser(user);
