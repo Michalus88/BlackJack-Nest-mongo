@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
 import { sign } from 'jsonwebtoken';
 
-import { hashPwd } from 'src/utils/hash-pwd';
-import { sanitizeUser } from 'src/utils/sanitize-user';
-import { ResponseUserData, UserData } from 'src/interfaces/user';
-import { UserService } from 'src/user/user.service';
-import { stringToBoolean } from 'src/utils/string-to-boolean';
+import { hashPwd } from '../utils/hash-pwd';
+import { sanitizeUser } from '../utils/sanitize-user';
+import { ResponseUserData, UserData } from '../interfaces/user';
+import { UserService } from '../user/user.service';
+import { stringToBoolean } from '../utils/string-to-boolean';
 
 @Injectable()
 export class AuthService {
