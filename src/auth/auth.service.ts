@@ -10,13 +10,13 @@ import { stringToBoolean } from '../utils/string-to-boolean';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UserService) {}
+  constructor(private userService: UserService) {}
 
   async validateUser(
     email: string,
     pwd: string,
   ): Promise<ResponseUserData | null> {
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.userService.findByEmail(email);
     if (user && user.pwd === hashPwd(pwd)) {
       return sanitizeUser(user);
     }
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   logout(res: Response) {
-    res
+    return res
       .clearCookie('jwt', {
         secure: stringToBoolean(process.env.COOKIE_SECURE),
         domain: process.env.DOMAIN,
