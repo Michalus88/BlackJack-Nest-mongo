@@ -29,7 +29,7 @@ export class UserService {
     return { id: String(newUser._id), message: 'registration successful' };
   }
 
-  async findByEmail(email): Promise<UserData | null> {
+  async findByEmail(email: string): Promise<UserData | null> {
     return this.userModel.findOne({ email });
   }
 }
