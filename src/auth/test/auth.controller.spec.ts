@@ -35,10 +35,10 @@ describe('AuthController', () => {
 
   describe('login', () => {
     describe('when login is called', () => {
-      let loggedUser: LoggedUserRes;
+      let res: Response;
 
       beforeEach(async () => {
-        loggedUser = await authController.login(userStub(), response);
+        res = await authController.login(userStub(), response);
       });
 
       test('then it should call once authService.login', () => {
@@ -47,14 +47,14 @@ describe('AuthController', () => {
       });
 
       test('then is should return a LoggedUserRes', () => {
-        expect(loggedUser).toEqual(loggedUserResStub());
+        expect(res.json).toEqual(loggedUserResStub());
       });
     });
   });
 
   describe('logout', () => {
     describe('when logout is called', () => {
-      let res: { message: string };
+      let res: Response;
 
       beforeEach(async () => {
         res = await authController.logout(response);
@@ -66,7 +66,7 @@ describe('AuthController', () => {
       });
 
       test('then is should return a success message', () => {
-        expect(res.message).toEqual('Logout was successful');
+        expect(res.json).toEqual({ message: 'Logout was successful' });
       });
     });
   });
