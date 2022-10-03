@@ -1,11 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from '../auth.controller';
 import { AuthService } from '../auth.service';
-import { response } from 'express';
+import { Response } from 'express';
 import { loggedUserResStub, userStub } from '../../user/test/stubs/user.sub';
-import { LoggedUserRes } from 'types';
 
 jest.mock('../auth.service.ts');
+
+const response = {
+  json: jest.fn((result) => result),
+} as unknown as Response;
 
 describe('AuthController', () => {
   let authController: AuthController;
