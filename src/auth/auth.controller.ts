@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { UserData } from 'src/interfaces/user';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
-import { UserObj } from 'src/decorators/user-object.decorator';
+import { UserObj } from '../decorators/user-object.decorator';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('api/auth')
