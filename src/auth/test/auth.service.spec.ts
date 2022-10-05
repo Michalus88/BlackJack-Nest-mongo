@@ -38,15 +38,7 @@ describe('AuthService', () => {
       let res: ResponseUserData | null;
 
       beforeEach(async () => {
-        jest
-          .spyOn(userService, 'findByEmail')
-          .mockImplementation(async (email) => {
-            if (email === userStub().email) {
-              return userStub();
-            } else {
-              return null;
-            }
-          });
+        jest.spyOn(userService, 'findByEmail');
         jest.spyOn(authService, 'validateUser');
         jest.spyOn(crypto, 'hashPwd').mockImplementation((pwd: string) => pwd);
       });
