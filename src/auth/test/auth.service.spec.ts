@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigModule } from '@nestjs/config';
+import { response } from 'express';
+import * as jwt from 'jsonwebtoken';
+
+import { AuthService } from '../auth.service';
+import * as crypto from '../../utils/hash-pwd';
 import { ResponseUserData } from '../../interfaces/user';
 import { userStub } from '../../user/test/stubs/user.sub';
 import { UserService } from '../../user/user.service';
-import { AuthService } from '../auth.service';
-import * as crypto from '../../utils/hash-pwd';
-import { response } from 'express';
-import * as jwt from 'jsonwebtoken';
-import { ConfigModule } from '@nestjs/config';
 
 jest.mock('../../user/user.service.ts');
 
