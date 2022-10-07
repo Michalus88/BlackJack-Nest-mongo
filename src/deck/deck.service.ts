@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { CardInterface } from '../schemas/user.schema';
-import { CARD_TYPES, CARDS_WEIGHTS } from './constans';
+import { CARD_TYPES, CARDS_WEIGHTS } from './constants';
 import { UserData } from '../interfaces/user';
 
 @Injectable()

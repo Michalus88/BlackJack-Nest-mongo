@@ -1,4 +1,4 @@
-import { CARDS_WEIGHTS, CARD_TYPES } from '../../constans';
+import { CARDS_WEIGHTS, CARD_TYPES } from '../../constants';
 import { CardInterface } from '../../../schemas/user.schema';
 
 export const noShuffleDeck = () => {
