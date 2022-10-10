@@ -6,23 +6,24 @@ import { UserData } from '../../../interfaces/user';
 import { noShuffleDeck } from '../../../deck/test/helpers/deck';
 
 const id = new mongoose.Types.ObjectId('62c0674a077b23209608d4f9');
+const deck = noShuffleDeck();
 
 export const userStub = (): UserData =>
   ({
     _id: id,
     isBet: false,
     isDeal: false,
-    dealerPoints: 9,
+    dealerPoints: 5,
     playerBet: 100,
-    playerPoints: 15,
+    playerPoints: 5,
     means: 200,
     pwd: 'password',
     email: 'test@wp.pl',
     name: 'Test',
-    playerCards: [{ type: 'clubs', weight: '7' }],
-    dealerCards: [{ type: 'clubs', weight: '8' }],
-    deck: [{ type: 'clubs', weight: '9' }],
-    gameResult: 0,
+    playerCards: [deck[0], deck[1]],
+    dealerCards: [deck[0], deck[1]],
+    deck: noShuffleDeck(),
+    gameResult: GameResults.DRAW,
   } as unknown as UserData);
 
 export const loggedUserResStub = (): LoggedUserRes => ({
