@@ -7,5 +7,11 @@ import {
 export const UserService = jest.fn().mockReturnValue({
   getUser: jest.fn().mockResolvedValue(loggedUserResStub()),
   create: jest.fn().mockResolvedValue(registerResStub()),
-  findByEmail: jest.fn().mockResolvedValue(userStub()),
+  findByEmail: jest.fn().mockImplementation(async (email) => {
+    if (email === userStub().email) {
+      return userStub();
+    } else {
+      return null;
+    }
+  }),
 });

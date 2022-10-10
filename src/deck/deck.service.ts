@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserData } from 'src/interfaces/user';
-import { CardInterface } from 'src/schemas/user.schema';
-import { cardsTypes, cardsWeights } from './constans';
+
+import { CardInterface } from '../schemas/user.schema';
+import { CARD_TYPES, CARDS_WEIGHTS } from './constants';
+import { UserData } from '../interfaces/user';
 
 @Injectable()
 export class DeckService {
@@ -22,10 +23,9 @@ export class DeckService {
 
   createDeck(): CardInterface[] {
     const deck: CardInterface[] = [];
-    cardsTypes.forEach((type) =>
-      cardsWeights.forEach((weight) => deck.push({ weight, type })),
+    CARD_TYPES.forEach((type) =>
+      CARDS_WEIGHTS.forEach((weight) => deck.push({ weight, type })),
     );
-
     return this.shuffle(deck);
   }
 

@@ -1,8 +1,9 @@
 import { Strategy, VerifiedCallback } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import { cookieExtractor } from 'src/utils/cookie-extractor';
+
+import { cookieExtractor } from '../utils/cookie-extractor';
+import { UserService } from '../user/user.service';
 
 export interface JwtPayload {
   email: string;
