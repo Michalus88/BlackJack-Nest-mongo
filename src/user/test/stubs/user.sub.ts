@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
-import { UserData } from 'src/interfaces/user';
+
 import { LoggedUserRes, RegisterRes } from 'types';
+import { GameResults } from '../../../game/constants';
+import { UserData } from '../../../interfaces/user';
+import { noShuffleDeck } from '../../../deck/test/helpers/deck';
 
 const id = new mongoose.Types.ObjectId('62c0674a077b23209608d4f9');
 

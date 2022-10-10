@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { UserData } from 'src/interfaces/user';
+
+import { UserData } from '../interfaces/user';
 import {
   GameResults,
   MAX_NUMBER_OF_POINTS,
   CardSymbols,
-} from 'src/game/constants';
-import { CardInterface } from 'src/schemas/user.schema';
+} from '../game/constants';
+import { CardInterface } from '../schemas/user.schema';
 
 @Injectable()
 export class PlayerService {
